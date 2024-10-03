@@ -2,7 +2,8 @@ __import__('pysqlite3')
 import pysqlite3
 sys.modules['sqlite3'] = sys.modules["pysqlite3"]
 
-import fitz  
+import fitz
+import sys
 import os
 import io
 import json
