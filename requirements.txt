@@ -3,7 +3,7 @@ pypdf
 Pillow
 boto3
 numpy
-pysqlite3-binary
+pysqlite3
 streamlit~=1.35.0
 sentence-transformers
 scikit-learn
