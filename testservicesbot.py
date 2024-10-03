@@ -137,7 +137,7 @@ def chatbot(query, vectordb, keyword_image_map):
 if __name__ == '__main__':
     st.title("Fedway Services - Helpdesk POC")
 
-    pdf_path = "/Users/jayanthdasamantharao/EliteUS/deploying-servicesbot/POET_Everyday_Instructions_2page.pdf"
+    pdf_path = "POET_Everyday_Instructions_2page.pdf"
     #vectordb = extract_images_from_pdf(pdf_path, output_dir)
     keyword_image_map = create_keyword_mapping()
     vectordb = extract_text_and_create_embeddings(pdf_path)
