@@ -23,8 +23,8 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 bedrock_runtime = boto3.client(
         service_name='bedrock-runtime',
         region_name='us-east-1',
-        aws_access_key_id='AKIA4MTWNHVM7EBUHI4X',
-        aws_secret_access_key='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'
+        aws_access_key_id='AWS_ACCESS_KEY',
+        aws_secret_access_key='AWS_SECRET_ACCESS_KEY'
     )
 
 # Function to create a mapping between keywords and images
