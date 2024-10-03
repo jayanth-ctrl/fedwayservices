@@ -10,5 +10,5 @@ langchain_community
 transformers
 nltk
 chromadb
-langchain = ">=0.0.353,<0.2" 
-chromadb = ">=0.4.14"
+langchain~=0.2.3
+chromadb
