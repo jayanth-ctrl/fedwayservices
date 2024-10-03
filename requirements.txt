@@ -124,6 +124,7 @@ SQLAlchemy==2.0.35
 starlette==0.38.6
 streamlit==1.39.0
 sympy==1.13.3
+sqlite3 >= 3.35.0
 tenacity==8.5.0
 threadpoolctl==3.5.0
 tokenizers==0.20.0
