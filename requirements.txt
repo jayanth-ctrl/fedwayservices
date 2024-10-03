@@ -6,9 +6,9 @@ numpy
 streamlit~=1.35.0
 sentence-transformers
 scikit-learn
-langchain~=0.2.3
 langchain_community
-langchain_openai
 transformers
 nltk
 chromadb
+langchain = ">=0.0.353,<0.2" 
+chromadb = ">=0.4.14"
