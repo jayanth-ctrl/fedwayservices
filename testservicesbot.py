@@ -1,12 +1,4 @@
-import sys  # Import sys first
-
-__import__('pysqlite3')
-import pysqlite3
-
-# Redirect sqlite3 to pysqlite3
-sys.modules['sqlite3'] = sys.modules["pysqlite3"]
-
-import fitz
+import fitz  
 import os
 import io
 import json
@@ -145,7 +137,7 @@ def chatbot(query, vectordb, keyword_image_map):
 if __name__ == '__main__':
     st.title("Fedway Services - Helpdesk POC")
 
-    pdf_path = "POET_Everyday_Instructions_2page.pdf"
+    pdf_path = "/Users/jayanthdasamantharao/EliteUS/deploying-servicesbot/POET_Everyday_Instructions_2page.pdf"
     #vectordb = extract_images_from_pdf(pdf_path, output_dir)
     keyword_image_map = create_keyword_mapping()
     vectordb = extract_text_and_create_embeddings(pdf_path)
@@ -181,5 +173,3 @@ if __name__ == '__main__':
 
                     st.session_state.messages.append({"role": "assistant", "content": f"Image reference: {image_index}"})
                     st.image(image_path, caption=f"Image", width=200)
-
-
