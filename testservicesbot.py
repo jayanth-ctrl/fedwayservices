@@ -50,6 +50,7 @@ def extract_text_and_create_embeddings(pdf_path):
     vectordb = Chroma.from_documents(
         documents=splits,
         embedding=embeddings,
+        persist_directory="./new_chroma_db"
     )
     vectordb.persist()
     
