@@ -12,3 +12,4 @@ nltk
 chromadb
 langchain~=0.1.9
 chromadb==0.4.4
+pysqlite3
