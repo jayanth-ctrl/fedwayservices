@@ -7,6 +7,7 @@ import random
 import time
 import warnings
 import numpy as np
+import sqlite3
 import streamlit as st
 from PIL import Image
 from sentence_transformers import SentenceTransformer
@@ -16,7 +17,6 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.prompts import PromptTemplate
-
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
