@@ -1,4 +1,5 @@
 pymupdf
+pypdf
 Pillow
 boto3
 numpy
