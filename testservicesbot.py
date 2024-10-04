@@ -25,8 +25,6 @@ from langchain.prompts import PromptTemplate
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-dotenv.load_dotenv()
-
 bedrock_runtime = boto3.client(
         service_name='bedrock-runtime',
         region_name='us-east-1',
