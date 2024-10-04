@@ -16,3 +16,4 @@ grpcio==1.66.2
 protobuf==4.25.5
 scipy==1.13.1
 pandas==2.2.3
+sqlite3==3.35.0
