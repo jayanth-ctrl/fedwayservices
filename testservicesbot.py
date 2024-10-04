@@ -25,11 +25,13 @@ from langchain.prompts import PromptTemplate
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
+dotenv.load_dotenv()
+
 bedrock_runtime = boto3.client(
         service_name='bedrock-runtime',
         region_name='us-east-1',
-        aws_access_key_id='AWS_ACCESS_KEY',
-        aws_secret_access_key='AWS_SECRET_ACCESS_KEY'
+        aws_access_key_id= os.environ['AWS_ACCESS_KEY'],
+        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY']
     )
 
 # Function to create a mapping between keywords and images
