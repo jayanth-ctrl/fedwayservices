@@ -112,7 +112,6 @@ def chatbot(query, vectordb, keyword_image_map):
 
     retriever = vectordb.as_retriever(search_type="similarity", search_kwargs={"k": 2})
     retrieved_docs = vectordb.similarity_search(query, k=4)
-    #relevant_docs = retriever.get_relevant_documents(query)
     relevant_content = "\n\n".join(doc.page_content for doc in retrieved_docs)
     best_keyword = find_best_matching_keyword(query, keyword_image_map)
     relevant_images = keyword_image_map.get(best_keyword, []) if best_keyword else []
@@ -146,43 +145,40 @@ def greetings_generator(prompt):
     yield GREETINGS
 
 if __name__ == '__main__':
-        st.image("fedway-logo.png", use_column_width=False, width=300)
-        st.title("Fedway Services - Helpdesk POC")
-        index_images()
-        st.write_stream(greetings_generator("Greetings"))
-        pdf_path = "POET_Everyday_Instructions_2page.pdf"
-        #vectordb = extract_images_from_pdf(pdf_path, output_dir)
-        keyword_image_map = create_keyword_mapping()
-        vectordb = extract_text_and_create_embeddings(pdf_path)
-        st.markdown("<p style='font-size:14px; font-weight:bold;'>Hi! I am a chatbot to help you with POET Instructions.</p>", unsafe_allow_html=True)
+    st.image("fedway-logo.png", use_column_width=False, width=300)
+    st.title("Fedway Services - Helpdesk POC")
+    pdf_path = "POET_Everyday_Instructions_2page.pdf"
+    keyword_image_map = create_keyword_mapping()
+    vectordb = extract_text_and_create_embeddings(pdf_path)
+    st.markdown("<p style='font-size:14px; font-weight:bold;'>Hi! I am a chatbot to help you with POET Instructions.</p>", unsafe_allow_html=True)
 
-        if "messages" not in st.session_state:
-                st.session_state.messages = []
-        if "images" not in st.session_state:
-                st.session_state.images = []
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+    if "images" not in st.session_state:
+        st.session_state.images = []
 
-        for i, message in enumerate(st.session_state.messages):
-                with st.chat_message(message["role"]):
-        if message["content"].startswith("Image reference: "):
+    for i, message in enumerate(st.session_state.messages):
+        with st.chat_message(message["role"]):
+            if message["content"].startswith("Image reference: "):
                 image_index = int(message["content"].split()[-1])  
                 st.image(st.session_state.images[image_index], caption=f"Image")
-        else:
+            else:
                 st.markdown(message["content"])
 
-        if prompt := st.chat_input("What would you like to ask?"):
-                with st.chat_message("user"):
-                        st.markdown(prompt)
-                        st.session_state.messages.append({"role": "user", "content": prompt})
+    if prompt := st.chat_input("What would you like to ask?"):
+        with st.chat_message("user"):
+            st.markdown(prompt)
+            st.session_state.messages.append({"role": "user", "content": prompt})
 
         with st.chat_message("assistant"):
-                response, image_paths = chatbot(prompt, vectordb, keyword_image_map)
-                st.session_state.messages.append({"role": "assistant", "content": response})
-                st.markdown(response)
+            response, image_paths = chatbot(prompt, vectordb, keyword_image_map)
+            response = response.replace('\n', '<br>')
+            st.session_state.messages.append({"role": "assistant", "content": response})
+            st.markdown(response, unsafe_allow_html=True)
 
-        for image_path in image_paths:
+            for image_path in image_paths:
                 if os.path.exists(image_path):
-                        st.session_state.images.append(image_path)
-                        image_index = len(st.session_state.images) - 1  
-
-                        st.session_state.messages.append({"role": "assistant", "content": f"Image reference: {image_index}"})
-                        st.image(image_path, caption=f"Image", width=200)
+                    st.session_state.images.append(image_path)
+                    image_index = len(st.session_state.images) - 1  
+                    st.session_state.messages.append({"role": "assistant", "content": f"Image reference: {image_index}"})
+                    st.image(image_path, caption=f"Image", width=200)
