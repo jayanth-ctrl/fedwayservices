@@ -23,6 +23,10 @@ from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.prompts import PromptTemplate
 
+pdf_path = "POET_Everyday_Instructions_2page.pdf"
+keyword_image_map = create_keyword_mapping()
+vectordb = extract_text_and_create_embeddings(pdf_path)
+
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 bedrock_runtime = boto3.client(
@@ -147,9 +151,9 @@ def greetings_generator(prompt):
 if __name__ == '__main__':
     st.image("fedway-logo.png", use_column_width=False, width=300)
     st.title("Fedway Services - Helpdesk POC")
-    pdf_path = "POET_Everyday_Instructions_2page.pdf"
-    keyword_image_map = create_keyword_mapping()
-    vectordb = extract_text_and_create_embeddings(pdf_path)
+    # pdf_path = "POET_Everyday_Instructions_2page.pdf"
+    # keyword_image_map = create_keyword_mapping()
+    # vectordb = extract_text_and_create_embeddings(pdf_path)
     st.markdown("<p style='font-size:14px; font-weight:bold;'>Hi! I am a chatbot to help you with POET Instructions.</p>", unsafe_allow_html=True)
 
     if "messages" not in st.session_state:
@@ -164,6 +168,14 @@ if __name__ == '__main__':
     #             st.image(st.session_state.images[image_index], caption=f"Image")
     #         else:
     #             st.markdown(message["content"])
+
+        for i, message in enumerate(st.session_state.messages):
+                with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+        
+            if message["content"].startswith("Image reference: "):
+                image_index = int(message["content"].split()[-1])  
+                st.image(st.session_state.images[image_index], caption=f"Image {image_index + 1}")
 
     if prompt := st.chat_input("What would you like to ask?"):
         with st.chat_message("user"):
