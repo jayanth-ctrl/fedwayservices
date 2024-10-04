@@ -156,33 +156,33 @@ if __name__ == '__main__':
         vectordb = extract_text_and_create_embeddings(pdf_path)
         st.markdown("<p style='font-size:14px; font-weight:bold;'>Hi! I am a chatbot to help you with POET Instructions.</p>", unsafe_allow_html=True)
 
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-    if "images" not in st.session_state:
-        st.session_state.images = []
+        if "messages" not in st.session_state:
+                st.session_state.messages = []
+        if "images" not in st.session_state:
+                st.session_state.images = []
 
-    for i, message in enumerate(st.session_state.messages):
-        with st.chat_message(message["role"]):
-            if message["content"].startswith("Image reference: "):
+        for i, message in enumerate(st.session_state.messages):
+                with st.chat_message(message["role"]):
+        if message["content"].startswith("Image reference: "):
                 image_index = int(message["content"].split()[-1])  
                 st.image(st.session_state.images[image_index], caption=f"Image")
-            else:
+        else:
                 st.markdown(message["content"])
 
-    if prompt := st.chat_input("What would you like to ask?"):
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        if prompt := st.chat_input("What would you like to ask?"):
+                with st.chat_message("user"):
+                        st.markdown(prompt)
+                        st.session_state.messages.append({"role": "user", "content": prompt})
 
         with st.chat_message("assistant"):
-            response, image_paths = chatbot(prompt, vectordb, keyword_image_map)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.markdown(response)
+                response, image_paths = chatbot(prompt, vectordb, keyword_image_map)
+                st.session_state.messages.append({"role": "assistant", "content": response})
+                st.markdown(response)
 
-            for image_path in image_paths:
+        for image_path in image_paths:
                 if os.path.exists(image_path):
-                    st.session_state.images.append(image_path)
-                    image_index = len(st.session_state.images) - 1  
+                        st.session_state.images.append(image_path)
+                        image_index = len(st.session_state.images) - 1  
 
-                    st.session_state.messages.append({"role": "assistant", "content": f"Image reference: {image_index}"})
-                    st.image(image_path, caption=f"Image", width=200)
+                        st.session_state.messages.append({"role": "assistant", "content": f"Image reference: {image_index}"})
+                        st.image(image_path, caption=f"Image", width=200)
