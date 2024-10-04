@@ -169,13 +169,13 @@ if __name__ == '__main__':
     #         else:
     #             st.markdown(message["content"])
 
-        for i, message in enumerate(st.session_state.messages):
-                with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+        # for i, message in enumerate(st.session_state.messages):
+        #         with st.chat_message(message["role"]):
+        #     st.markdown(message["content"])
         
-            if message["content"].startswith("Image reference: "):
-                image_index = int(message["content"].split()[-1])  
-                st.image(st.session_state.images[image_index], caption=f"Image {image_index + 1}")
+        #     if message["content"].startswith("Image reference: "):
+        #         image_index = int(message["content"].split()[-1])  
+        #         st.image(st.session_state.images[image_index], caption=f"Image {image_index + 1}")
 
     if prompt := st.chat_input("What would you like to ask?"):
         with st.chat_message("user"):
