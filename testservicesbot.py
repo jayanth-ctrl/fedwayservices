@@ -157,13 +157,13 @@ if __name__ == '__main__':
     if "images" not in st.session_state:
         st.session_state.images = []
 
-    for i, message in enumerate(st.session_state.messages):
-        with st.chat_message(message["role"]):
-            if message["content"].startswith("Image reference: "):
-                image_index = int(message["content"].split()[-1])  
-                st.image(st.session_state.images[image_index], caption=f"Image")
-            else:
-                st.markdown(message["content"])
+    # for i, message in enumerate(st.session_state.messages):
+    #     with st.chat_message(message["role"]):
+    #         if message["content"].startswith("Image reference: "):
+    #             image_index = int(message["content"].split()[-1])  
+    #             st.image(st.session_state.images[image_index], caption=f"Image")
+    #         else:
+    #             st.markdown(message["content"])
 
     if prompt := st.chat_input("What would you like to ask?"):
         with st.chat_message("user"):
