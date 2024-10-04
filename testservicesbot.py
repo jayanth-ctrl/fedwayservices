@@ -32,6 +32,8 @@ bedrock_runtime = boto3.client(
         aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY']
     )
 
+GREETINGS = "Hello! I am the Fedway Assistant. I can help you find product images. Please ask me about any product and I will display the images for you."
+
 # Function to create a mapping between keywords and images
 def create_keyword_mapping():
     keyword_image_map = {
@@ -140,14 +142,19 @@ def chatbot(query, vectordb, keyword_image_map):
     response = invoke_llama_model(prompt)
     return response, relevant_images
 
-if __name__ == '__main__':
-    st.title("Fedway Services - Helpdesk POC")
+def greetings_generator(prompt):
+    yield GREETINGS
 
-    pdf_path = "POET_Everyday_Instructions_2page.pdf"
-    #vectordb = extract_images_from_pdf(pdf_path, output_dir)
-    keyword_image_map = create_keyword_mapping()
-    vectordb = extract_text_and_create_embeddings(pdf_path)
-    st.markdown("<p style='font-size:14px; font-weight:bold;'>Hi! I am a chatbot to help you with POET Instructions. Please ask.</p>", unsafe_allow_html=True)
+if __name__ == '__main__':
+        st.image("fedway-logo.png", use_column_width=False, width=300)
+        st.title("Fedway Services - Helpdesk POC")
+        index_images()
+        st.write_stream(greetings_generator("Greetings"))
+        pdf_path = "POET_Everyday_Instructions_2page.pdf"
+        #vectordb = extract_images_from_pdf(pdf_path, output_dir)
+        keyword_image_map = create_keyword_mapping()
+        vectordb = extract_text_and_create_embeddings(pdf_path)
+        st.markdown("<p style='font-size:14px; font-weight:bold;'>Hi! I am a chatbot to help you with POET Instructions.</p>", unsafe_allow_html=True)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
