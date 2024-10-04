@@ -9,7 +9,8 @@ streamlit==1.39.0
 pillow==10.4.0
 langchain
 langchain-community
-chromadb
+chromadb==0.3.29
+pysqlite3-binary
 SQLAlchemy==2.0.35
 uvicorn==0.31.0
 grpcio==1.66.2
