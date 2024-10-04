@@ -153,7 +153,7 @@ if __name__ == '__main__':
     st.image("fedway-logo.png", use_column_width=False, width=300)
     st.title("Fedway Services - Helpdesk POC")
     # pdf_path = "POET_Everyday_Instructions_2page.pdf"
-      keyword_image_map = create_keyword_mapping()
+    keyword_image_map = create_keyword_mapping()
     # vectordb = extract_text_and_create_embeddings(pdf_path)
     st.markdown("<p style='font-size:14px; font-weight:bold;'>Hi! I am a chatbot to help you with POET Instructions.</p>", unsafe_allow_html=True)
 
