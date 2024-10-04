@@ -85,7 +85,7 @@ def invoke_llama_model(prompt_text):
     return result['generation']
 
 # Function to find the best matching keyword
-def find_best_matching_keyword(user_query, keyword_image_map, threshold=0.7):
+def find_best_matching_keyword(user_query, keyword_image_map, threshold=0.6):
     model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
 
     user_query_embedding = model.encode([user_query])
